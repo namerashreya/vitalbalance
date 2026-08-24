@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalBalance - Navbar Component</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/design-system-v2.css">
+    <style>
+        /* ========================================
+           NAVBAR COMPONENT - REDESIGNED
+        ======================================== */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: var(--z-sticky);
+            background: var(--bg-white);
+            border-bottom: 1px solid rgba(46, 125, 50, 0.08);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+            border-bottom-color: rgba(46, 125, 50, 0.12);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        /* Logo Section */
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            text-decoration: none;
+            transition: transform var(--duration-normal) var(--ease-smooth);
+        }
+
+        .navbar-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .navbar-logo:hover .logo-icon {
+            box-shadow: var(--shadow-md);
+            transform: rotate(5deg);
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-tagline {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 2px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Navigation Menu */
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            border-radius: var(--radius-md);
+            transition: all var(--duration-normal) var(--ease-smooth);
+            position: relative;
+        }
+
+        .nav-link svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            transition: transform var(--duration-normal) var(--ease-smooth);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+            background: var(--secondary-sage-ultra-light);
+        }
+
+        .nav-link:hover svg {
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--primary-green);
+            background: var(--secondary-sage-ultra-light);
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: var(--primary-green);
+            border-radius: 2px;
+            animation: slideIn 0.3s var(--ease-smooth);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        /* User Section */
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            background: var(--bg-light-green);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .user-profile:hover {
+            background: var(--secondary-sage-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-leaf));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border: 2px solid white;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .mobile-toggle svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .navbar-container {
+                padding: 0 var(--spacing-lg);
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .navbar-menu {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--bg-white);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: var(--spacing-lg);
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--duration-slow) var(--ease-smooth);
+            }
+
+            .navbar-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-link {
+                padding: 1rem;
+                justify-content: flex-start;
+            }
+
+            .user-info {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-tagline {
+                display: none;
+            }
+
+            .navbar-container {
+                height: 64px;
+            }
+        }
+    </style>
+</head>
+
+<body style="background: var(--bg-beige); min-height: 100vh;">
+
+    <!-- Navbar Component -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <a href="dashboard.php" class="navbar-logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z">
+                        </path>
+                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">VitalBalance</span>
+                    <span class="logo-tagline">Personalized Wellness & Chronic Care</span>
+                </div>
+            </a>
+
+            <!-- Navigation Menu -->
+            <ul class="navbar-menu" id="navbarMenu">
+                <li class="nav-item">
+                    <a href="dashboard.php" class="nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                            <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                            <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                            <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="my_diseases.php" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                        My Diseases
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="health_records.php" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        Health Records
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="remedies.php" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z">
+                            </path>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                        </svg>
+                        Remedies
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="wellness_tracker.php" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        Wellness
+                    </a>
+                </li>
+            </ul>
+
+            <!-- User Section -->
+            <div class="navbar-user">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <!-- If user has avatar image -->
+                        <!-- <img src="path/to/avatar.jpg" alt="User Avatar"> -->
+                        <!-- Otherwise show initials -->
+                        JD
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">John Doe</span>
+                        <span class="user-role">Patient</span>
+                    </div>
+                </div>
+                <a href="../logout.php" class="btn btn-soft btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="width: 18px; height: 18px;">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" x2="9" y1="12" y2="12"></line>
+                    </svg>
+                    Logout
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Demo Content -->
+    <div style="padding: 3rem; max-width: 1200px; margin: 0 auto;">
+        <h1>Navbar Component Demo</h1>
+        <p>Scroll down to see the navbar shadow effect.</p>
+        <div style="height: 150vh; padding-top: 2rem;">
+            <div class="card">
+                <h3>Features</h3>
+                <ul style="color: var(--text-secondary); line-height: 2;">
+                    <li>✨ Smooth scroll effect with enhanced shadow</li>
+                    <li>🎨 Active state with animated underline</li>
+                    <li>🖱️ Hover effects on all interactive elements</li>
+                    <li>📱 Fully responsive with mobile menu</li>
+                    <li>♿ Keyboard accessible</li>
+                    <li>🌿 Consistent with nature-health theme</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navbarMenu = document.getElementById('navbarMenu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        mobileToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('active');
+
+            // Toggle icon
+            const icon = mobileToggle.querySelector('svg');
+            if (navbarMenu.classList.contains('active')) {
+                icon.innerHTML = `
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                `;
+            } else {
+                icon.innerHTML = `
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                `;
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target) && navbarMenu.classList.contains('active')) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+
+        // Set active nav link based on current page
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                document.querySelector('.nav-link.active')?.classList.remove('active');
+                link.classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

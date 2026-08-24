@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalBalance - Form Components</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/design-system-v2.css">
+    <style>
+        /* ========================================
+           FORM COMPONENTS - REDESIGNED
+        ======================================== */
+
+        body {
+            background: var(--bg-beige);
+            padding: var(--spacing-2xl);
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(46, 125, 50, 0.08);
+            animation: scaleIn var(--duration-slow) var(--ease-smooth);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .form-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            box-shadow: 0 8px 24px rgba(46, 125, 50, 0.25);
+        }
+
+        .form-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: white;
+        }
+
+        .form-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        /* Standard Input */
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            transition: color var(--duration-normal);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--secondary-sage-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Floating Label Input */
+        .input-floating {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+
+        .input-floating .input-field {
+            padding-top: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .input-floating .form-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            pointer-events: none;
+            transition: all var(--duration-normal) var(--ease-smooth);
+            color: var(--text-muted);
+            font-weight: 500;
+            background: white;
+            padding: 0 0.25rem;
+        }
+
+        .input-floating .input-field:focus~.form-label,
+        .input-floating .input-field:not(:placeholder-shown)~.form-label {
+            top: -0.5rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Input with Icon */
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon svg {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-muted);
+            transition: stroke var(--duration-normal) var(--ease-smooth);
+            pointer-events: none;
+        }
+
+        .input-icon .input-field {
+            padding-left: 3rem;
+        }
+
+        .input-icon .input-field:focus~svg {
+            stroke: var(--primary-green);
+        }
+
+        /* Validation States */
+        .input-field.valid {
+            border-color: var(--success);
+        }
+
+        .input-field.valid:focus {
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+        }
+
+        .input-field.invalid {
+            border-color: var(--error);
+            animation: shake 0.4s ease;
+        }
+
+        .input-field.invalid:focus {
+            box-shadow: 0 0 0 4px rgba(239, 83, 80, 0.1);
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* Validation Messages */
+        .validation-message {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .validation-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .validation-message svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .validation-message.success {
+            color: var(--success);
+        }
+
+        .validation-message.success svg {
+            stroke: var(--success);
+        }
+
+        .validation-message.error {
+            color: var(--error);
+        }
+
+        .validation-message.error svg {
+            stroke: var(--error);
+        }
+
+        /* Select Dropdown */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--text-muted);
+            pointer-events: none;
+            transition: border-color var(--duration-normal);
+        }
+
+        .select-wrapper:focus-within::after {
+            border-top-color: var(--primary-green);
+        }
+
+        select.input-field {
+            appearance: none;
+            cursor: pointer;
+            padding-right: 3rem;
+        }
+
+        /* Textarea */
+        textarea.input-field {
+            min-height: 120px;
+            resize: vertical;
+            font-family: var(--font-body);
+        }
+
+        /* Checkbox & Radio */
+        .checkbox-wrapper,
+        .radio-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            transition: background var(--duration-normal);
+        }
+
+        .checkbox-wrapper:hover,
+        .radio-wrapper:hover {
+            background: var(--secondary-sage-ultra-light);
+        }
+
+        .checkbox-wrapper input[type="checkbox"],
+        .radio-wrapper input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-green);
+        }
+
+        .checkbox-label,
+        .radio-label {
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        /* Loading State */
+        .btn.loading {
+            position: relative;
+            color: transparent;
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 0.5rem;
+            height: 4px;
+            background: var(--secondary-sage-ultra-light);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: all var(--duration-normal) var(--ease-smooth);
+            border-radius: var(--radius-full);
+        }
+
+        .password-strength-bar.weak {
+            width: 33%;
+            background: var(--error);
+        }
+
+        .password-strength-bar.medium {
+            width: 66%;
+            background: var(--warning);
+        }
+
+        .password-strength-bar.strong {
+            width: 100%;
+            background: var(--success);
+        }
+
+        /* Helper Text */
+        .helper-text {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .helper-text svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-muted);
+        }
+
+        /* Form Divider */
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin: var(--spacing-xl) 0;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--secondary-sage-light);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <!-- Login Form Example -->
+        <div class="form-card">
+            <div class="form-header">
+                <div class="form-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue your wellness journey 🌿</p>
+            </div>
+
+            <form id="loginForm">
+                <!-- Email with Icon -->
+                <div class="form-group">
+                    <div class="input-icon">
+                        <input type="email" class="input-field" id="email" placeholder="Enter your email" required>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </div>
+                    <div class="validation-message error" id="emailError">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" x2="12" y1="8" y2="12"></line>
+                            <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                        </svg>
+                        <span>Please enter a valid email address</span>
+                    </div>
+                </div>
+
+                <!-- Password with Floating Label -->
+                <div class="form-group">
+                    <div class="input-floating input-icon">
+                        <input type="password" class="input-field" id="password" placeholder=" " required>
+                        <label for="password" class="form-label">Password</label>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="form-group">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="remember">
+                        <span class="checkbox-label">Remember me for 30 days</span>
+                    </label>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="width: 20px; height: 20px;">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10 17 15 12 10 7"></polyline>
+                            <line x1="15" x2="3" y1="12" y2="12"></line>
+                        </svg>
+                        Sign In
+                    </button>
+                </div>
+
+                <div class="form-divider">or</div>
+
+                <div style="text-align: center;">
+                    <a href="#" style="color: var(--primary-green); font-weight: 600; font-size: 0.9375rem;">
+                        Forgot your password?
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Add Disease Form Example -->
+        <div class="form-card" style="margin-top: var(--spacing-2xl);">
+            <div class="form-header">
+                <div class="form-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 12h8"></path>
+                        <path d="M12 8v8"></path>
+                    </svg>
+                </div>
+                <h2>Add Health Condition</h2>
+                <p>Help us understand your health better</p>
+            </div>
+
+            <form id="diseaseForm">
+                <!-- Disease Name with Floating Label -->
+                <div class="form-group">
+                    <div class="input-floating">
+                        <input type="text" class="input-field" id="diseaseName" placeholder=" " required>
+                        <label for="diseaseName" class="form-label">Condition Name</label>
+                    </div>
+                    <div class="helper-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4"></path>
+                            <path d="M12 8h.01"></path>
+                        </svg>
+                        Enter the medical name of your condition
+                    </div>
+                </div>
+
+                <!-- Status Select -->
+                <div class="form-group">
+                    <label for="status" class="form-label">Current Status</label>
+                    <div class="select-wrapper">
+                        <select class="input-field" id="status" required>
+                            <option value="">Select status...</option>
+                            <option value="active">Active</option>
+                            <option value="managed">Managed</option>
+                            <option value="recovered">Recovered</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Diagnosis Date -->
+                <div class="form-group">
+                    <div class="input-floating">
+                        <input type="date" class="input-field" id="diagnosisDate" placeholder=" ">
+                        <label for="diagnosisDate" class="form-label">Diagnosis Date</label>
+                    </div>
+                </div>
+
+                <!-- Notes Textarea -->
+                <div class="form-group">
+                    <label for="notes" class="form-label">Additional Notes</label>
+                    <textarea class="input-field" id="notes"
+                        placeholder="Share any additional information about your condition..."></textarea>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="width: 18px; height: 18px;">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        Add Condition
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/icons.js"></script>
+    <script src="../assets/js/toast.js"></script>
+    <script>
+        // Email Validation
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+
+        emailInput.addEventListener('blur', () => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailInput.value && !emailRegex.test(emailInput.value)) {
+                emailInput.classList.add('invalid');
+                emailInput.classList.remove('valid');
+                emailError.classList.add('show');
+            } else if (emailInput.value) {
+                emailInput.classList.add('valid');
+                emailInput.classList.remove('invalid');
+                emailError.classList.remove('show');
+            }
+        });
+
+        // Login Form Submit
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Add loading state
+            submitBtn.classList.add('loading');
+
+            // Simulate API call
+            setTimeout(() => {
+                submitBtn.classList.remove('loading');
+                toast.success('Login successful! Redirecting to dashboard...', 'Welcome Back');
+
+                // Redirect after 1.5s
+                setTimeout(() => {
+                    // window.location.href = 'dashboard.php';
+                }, 1500);
+            }, 2000);
+        });
+
+        // Disease Form Submit
+        document.getElementById('diseaseForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const diseaseName = document.getElementById('diseaseName').value;
+            const status = document.getElementById('status').value;
+
+            if (!diseaseName || !status) {
+                toast.error('Please fill in all required fields', 'Validation Error');
+                return;
+            }
+
+            toast.success(`${diseaseName} has been added to your health profile`, 'Condition Added');
+
+            // Reset form
+            setTimeout(() => {
+                document.getElementById('diseaseForm').reset();
+            }, 1000);
+        });
+
+        // Real-time validation for all inputs
+        document.querySelectorAll('.input-field').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.value) {
+                    input.classList.add('valid');
+                    input.classList.remove('invalid');
+                } else {
+                    input.classList.remove('valid', 'invalid');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

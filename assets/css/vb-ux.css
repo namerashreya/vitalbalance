@@ -1,0 +1,418 @@
+/**
+ * ========================================
+ * VITALBALANCE MODERN UX STYLES
+ * Toast Notifications | Form Validation | Animations
+ * ========================================
+ */
+
+/* ============ TOAST NOTIFICATIONS ============ */
+.vb-toast {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 300px;
+    border-left: 4px solid;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+}
+
+.vb-toast::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: currentColor;
+    animation: toast-progress 4s linear;
+}
+
+@keyframes toast-progress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+.vb-toast-show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.vb-toast-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.vb-toast-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.vb-toast-message {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.vb-toast-close {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    padding: 0;
+}
+
+.vb-toast-close:hover {
+    opacity: 1;
+}
+
+.vb-toast-close svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Toast Types */
+.vb-toast-success {
+    border-left-color: var(--success);
+}
+
+.vb-toast-success .vb-toast-icon {
+    color: var(--success);
+}
+
+.vb-toast-error {
+    border-left-color: var(--error);
+}
+
+.vb-toast-error .vb-toast-icon {
+    color: var(--error);
+}
+
+.vb-toast-warning {
+    border-left-color: var(--warning);
+}
+
+.vb-toast-warning .vb-toast-icon {
+    color: var(--warning);
+}
+
+.vb-toast-info {
+    border-left-color: var(--info);
+}
+
+.vb-toast-info .vb-toast-icon {
+    color: var(--info);
+}
+
+/* ============ FORM VALIDATION STYLES ============ */
+.vb-field-error {
+    border-color: var(--error) !important;
+    background-color: rgba(229, 57, 53, 0.05) !important;
+}
+
+.vb-field-success {
+    border-color: var(--success) !important;
+    background-color: rgba(67, 160, 71, 0.05) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2343A047'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+    padding-right: 40px !important;
+}
+
+.vb-field-error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 0.5rem;
+    animation: shake 0.3s;
+}
+
+.vb-field-error-message svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* ============ LOADING STATES ============ */
+.vb-spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============ SKELETON LOADER ============ */
+.vb-skeleton {
+    padding: 1rem;
+}
+
+.vb-skeleton-line {
+    height: 16px;
+    background: linear-gradient(90deg,
+            var(--secondary-sage-ultra-light) 25%,
+            #e0e0e0 50%,
+            var(--secondary-sage-ultra-light) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ============ RIPPLE EFFECT ============ */
+.vb-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ============ BUTTON ENHANCEMENTS ============ */
+.btn,
+.vb-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover,
+.vb-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn:active,
+.vb-btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled,
+.vb-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* ============ FOCUS STATES ============ */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-green) !important;
+    box-shadow: 0 0 0 3px var(--primary-green-soft) !important;
+}
+
+/* ============ SMOOTH TRANSITIONS ============ */
+* {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* ============ SCROLL BEHAVIOR ============ */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-beige);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-sage);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-green);
+}
+
+/* ============ HOVER EFFECTS ============ */
+.vb-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vb-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* ============ FADE IN ANIMATIONS ============ */
+.vb-fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============ PULSE ANIMATION ============ */
+.vb-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* ============ BADGE ANIMATIONS ============ */
+.vb-badge-new {
+    position: relative;
+}
+
+.vb-badge-new::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: var(--error);
+    border-radius: 50%;
+    animation: badge-pulse 1.5s infinite;
+}
+
+@keyframes badge-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+    }
+}
+
+/* ============ RESPONSIVE UTILITIES ============ */
+@media (max-width: 768px) {
+    .vb-toast {
+        min-width: auto;
+        max-width: calc(100vw - 40px);
+    }
+
+    #vb-toast-container {
+        right: 10px;
+        left: 10px;
+    }
+}
+
+/* ============ ACCESSIBILITY ============ */
+.vb-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--primary-green);
+    outline-offset: 2px;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+
+    .vb-header,
+    .vb-nav,
+    .vb-footer,
+    .vb-toast,
+    button {
+        display: none !important;
+    }
+}

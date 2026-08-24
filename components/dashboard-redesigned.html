@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalBalance - Dashboard Redesigned</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/design-system-v2.css">
+    <style>
+        /* ========================================
+           DASHBOARD - REDESIGNED
+        ======================================== */
+
+        body {
+            background: var(--bg-beige);
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-xl);
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInDown var(--duration-slow) var(--ease-smooth);
+        }
+
+        .welcome-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .wellness-emoji {
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(46, 125, 50, 0.06);
+            transition: all var(--duration-normal) var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp var(--duration-slow) var(--ease-smooth);
+            animation-fill-mode: backwards;
+        }
+
+        .stat-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .stat-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .stat-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .stat-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(46, 125, 50, 0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--secondary-sage-ultra-light) 0%, transparent 70%);
+            opacity: 0.5;
+            transition: all var(--duration-slower) var(--ease-smooth);
+        }
+
+        .stat-card:hover::before {
+            transform: scale(1.2) rotate(45deg);
+            opacity: 0.7;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .stat-icon.primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+        }
+
+        .stat-icon.primary svg {
+            stroke: white;
+        }
+
+        .stat-icon.success {
+            background: linear-gradient(135deg, var(--success), var(--success-light));
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25);
+        }
+
+        .stat-icon.success svg {
+            stroke: white;
+        }
+
+        .stat-icon.info {
+            background: linear-gradient(135deg, var(--info), var(--info-light));
+            box-shadow: 0 4px 12px rgba(66, 165, 245, 0.25);
+        }
+
+        .stat-icon.info svg {
+            stroke: white;
+        }
+
+        .stat-icon.warning {
+            background: linear-gradient(135deg, var(--warning), var(--warning-light));
+            box-shadow: 0 4px 12px rgba(255, 167, 38, 0.25);
+        }
+
+        .stat-icon.warning svg {
+            stroke: white;
+        }
+
+        .stat-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            padding: 0.25rem 0.625rem;
+            border-radius: var(--radius-full);
+        }
+
+        .stat-change.positive {
+            color: var(--success);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .stat-change.negative {
+            color: var(--error);
+            background: rgba(239, 83, 80, 0.1);
+        }
+
+        .stat-change svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Wellness Score Section */
+        .wellness-score-section {
+            background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg-light-green) 100%);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(46, 125, 50, 0.08);
+            animation: scaleIn var(--duration-slow) var(--ease-smooth) 0.5s backwards;
+        }
+
+        .wellness-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .wellness-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .wellness-header p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .wellness-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+        }
+
+        /* Progress Ring */
+        .progress-ring-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-bg {
+            stroke: var(--secondary-sage-ultra-light);
+            fill: transparent;
+            stroke-width: 12;
+        }
+
+        .progress-ring-fill {
+            stroke: url(#gradient);
+            fill: transparent;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 565.48;
+            stroke-dashoffset: 565.48;
+            transition: stroke-dashoffset 2s var(--ease-smooth);
+        }
+
+        .progress-ring-fill.animate {
+            stroke-dashoffset: calc(565.48 - (565.48 * var(--progress)) / 100);
+        }
+
+        .progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-value {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            line-height: 1;
+        }
+
+        .progress-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Wellness Metrics */
+        .wellness-metrics {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .metric-item {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            box-shadow: var(--shadow-xs);
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .metric-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--secondary-sage-ultra-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .metric-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary-green);
+        }
+
+        .metric-info {
+            flex: 1;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-bar {
+            width: 80px;
+            height: 8px;
+            background: var(--secondary-sage-ultra-light);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-leaf));
+            border-radius: var(--radius-full);
+            transition: width 1s var(--ease-smooth);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .action-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(46, 125, 50, 0.06);
+            transition: all var(--duration-normal) var(--ease-smooth);
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-green);
+        }
+
+        .action-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: var(--secondary-sage-ultra-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-normal) var(--ease-smooth);
+        }
+
+        .action-card:hover .action-icon {
+            background: var(--primary-green);
+            transform: scale(1.1);
+        }
+
+        .action-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--primary-green);
+            transition: stroke var(--duration-normal);
+        }
+
+        .action-card:hover .action-icon svg {
+            stroke: white;
+        }
+
+        .action-content h3 {
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .action-content p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .wellness-content {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-ring-container {
+                width: 240px;
+                height: 240px;
+            }
+
+            .progress-value {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: var(--spacing-lg);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome back, John! 👋</h1>
+            <p class="welcome-subtitle">
+                <span class="wellness-emoji">🌿</span>
+                Here's your health overview for today
+            </p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-body">
+                    <div class="stat-label">Active Conditions</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                        Improving
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon success">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-body">
+                    <div class="stat-label">Health Records</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                        +2 this week
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon info">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z">
+                            </path>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-body">
+                    <div class="stat-label">Natural Remedies</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                        Active
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div class="stat-body">
+                    <div class="stat-label">Wellness Score</div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                        +5% this month
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wellness Score Visualization -->
+        <div class="wellness-score-section">
+            <div class="wellness-header">
+                <h2>Your Wellness Journey</h2>
+                <p>Track your overall health progress with our intelligent wellness score</p>
+            </div>
+            <div class="wellness-content">
+                <div class="progress-ring-container" style="--progress: 85">
+                    <svg class="progress-ring" width="280" height="280">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2E7D32;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#7CB342;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="progress-ring-bg" cx="140" cy="140" r="90"></circle>
+                        <circle class="progress-ring-fill animate" cx="140" cy="140" r="90"></circle>
+                    </svg>
+                    <div class="progress-center">
+                        <div class="progress-value">85</div>
+                        <div class="progress-label">Wellness Score</div>
+                    </div>
+                </div>
+
+                <div class="wellness-metrics">
+                    <div class="metric-item">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Physical Activity</div>
+                            <div class="metric-value">Good</div>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z">
+                                </path>
+                                <path
+                                    d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Mental Wellness</div>
+                            <div class="metric-value">Excellent</div>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+                                <path d="m8.5 8.5 7 7"></path>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Medication Adherence</div>
+                            <div class="metric-value">Very Good</div>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 style="margin-bottom: var(--spacing-lg); color: var(--text-primary);">Quick Actions</h2>
+        <div class="quick-actions">
+            <a href="#" class="action-card">
+                <div class="action-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 12h8"></path>
+                        <path d="M12 8v8"></path>
+                    </svg>
+                </div>
+                <div class="action-content">
+                    <h3>Add Health Record</h3>
+                    <p>Track your latest vitals</p>
+                </div>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z">
+                        </path>
+                        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                    </svg>
+                </div>
+                <div class="action-content">
+                    <h3>Browse Remedies</h3>
+                    <p>Explore natural solutions</p>
+                </div>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                        <line x1="16" x2="16" y1="2" y2="6"></line>
+                        <line x1="8" x2="8" y1="2" y2="6"></line>
+                        <line x1="3" x2="21" y1="10" y2="10"></line>
+                    </svg>
+                </div>
+                <div class="action-content">
+                    <h3>Schedule Checkup</h3>
+                    <p>Book your next visit</p>
+                </div>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <div class="action-content">
+                    <h3>Wellness Tracker</h3>
+                    <p>Log your daily activities</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress ring on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.progress-ring-fill').classList.add('animate');
+            }, 500);
+
+            // Animate metric bars
+            document.querySelectorAll('.metric-bar-fill').forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.transition = 'width 1s ease';
+                }, 1000 + (index * 200));
+            });
+        });
+
+        // Simulate real-time updates (demo)
+        setInterval(() => {
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(stat => {
+                // Add subtle pulse animation
+                stat.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    stat.style.animation = '';
+                }, 500);
+            });
+        }, 10000);
+    </script>
+
+</body>
+
+</html>
